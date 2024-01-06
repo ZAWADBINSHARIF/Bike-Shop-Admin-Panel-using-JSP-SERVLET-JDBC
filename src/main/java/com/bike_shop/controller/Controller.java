@@ -4,7 +4,6 @@ package com.bike_shop.controller;
 import com.bike_shop.DataAccessObject.BikeDAO;
 import com.bike_shop.bike_shop.Bike;
 import com.google.gson.Gson;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ public class Controller extends HttpServlet {
     private PrintWriter out;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
         try {
             List<Bike> allBikes = BikeDAO.getAllBikes();
@@ -36,7 +35,7 @@ public class Controller extends HttpServlet {
 
     // Post a new bike product information
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String bike_name = req.getParameter("bike_name");
         String company = req.getParameter("company");
         String description = req.getParameter("description");
@@ -62,7 +61,7 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
             int delete_id = Integer.parseInt(req.getParameter("id"));
