@@ -14,10 +14,10 @@ public class ConnectionProvider {
 
     public static Connection createConnection() throws ClassNotFoundException, SQLException {
         try {
-            Class.forName(DRIVER_PACKAGE);
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
         } catch (Exception error) {
-            System.out.println(error.getMessage());
+            System.out.println("Error from Connection: 21 " + error.getMessage());
         }
 
         return connection;
