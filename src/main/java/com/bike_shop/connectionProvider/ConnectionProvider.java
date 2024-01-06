@@ -13,7 +13,7 @@ public class ConnectionProvider {
 
     public static Connection createConnection() {
         try {
-            Class.forName("DRIVER_PACKAGE");
+            Class.forName(DRIVER_PACKAGE);
             connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
         } catch (Exception error) {
             System.out.println("Error from Connection: 21 " + error.getMessage());
