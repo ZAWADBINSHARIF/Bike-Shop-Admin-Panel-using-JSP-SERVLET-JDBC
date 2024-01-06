@@ -1,4 +1,4 @@
-package com.bike_shop.bike_shop;
+package com.bike_shop.connectionProvider;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +14,7 @@ public class ConnectionProvider {
 
     public static Connection createConnection() throws ClassNotFoundException, SQLException {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("DRIVER_PACKAGE");
             connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
         } catch (Exception error) {
             System.out.println("Error from Connection: 21 " + error.getMessage());
