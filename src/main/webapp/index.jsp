@@ -47,25 +47,25 @@
       <div class="bike_container d-flex flex-row flex-wrap gap-3">
 
         <%
-        for(int i = 0; i < allBikes.size(); i++){
-          out.println("<div class=\"bike\">\n" +
-                  "            <div class=\"card\" style=\"width: 18rem;\">\n" +
-                  "              <img src=\"https://th.bing.com/th/id/R.02c348b1411e413d8b6655599dfd1314?rik=gFv2XFj1jQA29g&pid=ImgRaw&r=0\" class=\"card-img-top\" width=\"240\" height=\"180\" alt=\"...\">\n" +
-                  "              <div class=\"card-body\">\n" +
-                  "                <h5 class=\"card-title\">"+ allBikes.get(i).bike_name() +"</h5>\n" +
-                  "                <p class=\"card-text\">"+ allBikes.get(i).company() +"</p>\n" +
-                  "              </div>\n" +
-                  "              <ul class=\"list-group list-group-flush\">\n" +
-                  "                <li class=\"list-group-item\">"+ allBikes.get(i).description() +"</li>\n" +
-                  "                <li class=\"list-group-item\">"+ allBikes.get(i).engine_power() +" CC</li>\n" +
-                  "                <li class=\"list-group-item\">"+ allBikes.get(i).price() +" TK</li>\n" +
-                  "              </ul>\n" +
-                  "              <div class=\"card-body d-flex justify-content-end\">\n" +
-                  "                <i class=\"fa-solid fa-trash fa-lg delete-icon\" ondblclick=handleDelete(\""+ allBikes.get(i).id() +"\")></i>\n" +
-                  "              </div>\n" +
-                  "            </div>\n" +
-                  "         </div>");
-        }
+            for (Bike allBike : allBikes) {
+                out.println("<div class=\"bike\">\n" +
+                        "            <div class=\"card\" style=\"width: 18rem;\">\n" +
+                        "              <img src=\"https://th.bing.com/th/id/R.02c348b1411e413d8b6655599dfd1314?rik=gFv2XFj1jQA29g&pid=ImgRaw&r=0\" class=\"card-img-top\" width=\"240\" height=\"180\" alt=\"...\">\n" +
+                        "              <div class=\"card-body\">\n" +
+                        "                <h5 class=\"card-title\">" + allBike.bike_name() + "</h5>\n" +
+                        "                <p class=\"card-text\">" + allBike.company() + "</p>\n" +
+                        "              </div>\n" +
+                        "              <ul class=\"list-group list-group-flush\">\n" +
+                        "                <li class=\"list-group-item\">" + allBike.description() + "</li>\n" +
+                        "                <li class=\"list-group-item\">" + allBike.engine_power() + " CC</li>\n" +
+                        "                <li class=\"list-group-item\">" + allBike.price() + " TK</li>\n" +
+                        "              </ul>\n" +
+                        "              <div class=\"card-body d-flex justify-content-end\">\n" +
+                        "                <i class=\"fa-solid fa-trash fa-lg delete-icon\" ondblclick=handleDelete(\"" + allBike.id() + "\")></i>\n" +
+                        "              </div>\n" +
+                        "            </div>\n" +
+                        "         </div>");
+            }
         %>
 
       </div>
