@@ -25,15 +25,18 @@ public class BikeDAO {
 
             while (resultSet.next()) {
 
-                allBikesList.add(new Bike(
+                allBikesList.add(
+                        new Bike(
+                        resultSet.getInt("id"),
                         resultSet.getString("bike_name"),
                         resultSet.getString("description"),
                         resultSet.getString("company"),
                         resultSet.getFloat("engine_power"),
                         resultSet.getFloat("price")
                 ));
-
             }
+
+            System.out.println(allBikesList.getFirst());
 
             connection.close();
             
@@ -67,12 +70,13 @@ public class BikeDAO {
     }
 
     public static boolean deleteBike(int id) {
-        try {
-            Connection connection = ConnectionProvider.createConnection();
-            String query = "DELETE FROM TABLE bikes WHERE id=?";
+        String query = "DELETE FROM bikes WHERE id=?";
+        Connection connection = ConnectionProvider.createConnection();
 
-            PreparedStatement statement = connection.prepareStatement(query);
+        try (PreparedStatement statement = connection.prepareStatement(query)){
             statement.setInt(1, id);
+
+            statement.executeUpdate();
 
             connection.close();
             return true;

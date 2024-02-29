@@ -25,6 +25,8 @@ public class Controller extends HttpServlet {
         try {
             List<Bike> allBikes = BikeDAO.getAllBikes();
 
+            resp.addHeader("Content-Type", "application/json");
+            req.setAttribute("All_Bikes",allBikes);
             out.println(gson.toJson(allBikes));
             out.close();
         } catch (Exception error) {
@@ -43,14 +45,16 @@ public class Controller extends HttpServlet {
         float price = Float.parseFloat(req.getParameter("price"));
 
         try {
-            Bike bikeData = new Bike(bike_name, company, description, engine_power, price);
+            Bike bikeData = new Bike(0, bike_name, company, description, engine_power, price);
             boolean response = BikeDAO.insertBike(bikeData);
 
             out = resp.getWriter();
             if (response) {
+                resp.addHeader("Content-Type", "application/json");
                 out.println(gson.toJson("New bike was inserted"));
                 System.out.println("New bike was inserted");
             } else {
+                resp.addHeader("Content-Type", "application/json");
                 out.println(gson.toJson("Insertion failed"));
                 System.out.println("Insertion failed");
             }
@@ -64,10 +68,14 @@ public class Controller extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
+            // http://localhost:8080/api/bike?id=1
             int delete_id = Integer.parseInt(req.getParameter("id"));
             boolean response = BikeDAO.deleteBike(delete_id);
 
             out = resp.getWriter();
+
+            resp.addHeader("Content-Type", "application/json");
+
             if (response) {
                 out.println(gson.toJson("ID: " + delete_id + ". Bike was deleted"));
                 System.out.println("Bike was deleted");

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class ConnectionProvider {
     private final static String DRIVER_PACKAGE = "com.mysql.cj.jdbc.Driver";
-    private final static String DB_URL = "jdbc:mysql://localhost:3307/bike";
+    private final static String DB_URL = "jdbc:mysql://localhost:3306/bike_admin_website";
     private final static String USER = "root";
     private final static String PASSWORD = "1234";
 
