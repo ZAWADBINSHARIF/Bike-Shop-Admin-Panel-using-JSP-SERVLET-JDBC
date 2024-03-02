@@ -3,17 +3,25 @@ package com.bike_shop.controller;
 
 import com.bike_shop.DataAccessObject.BikeDAO;
 import com.bike_shop.bike_shop.Bike;
+import com.bike_shop.bike_shop.SaveImageFile;
 import com.google.gson.Gson;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet("/api/bike")
+@MultipartConfig
 public class Controller extends HttpServlet {
 
     private final Gson gson = new Gson();
@@ -37,24 +45,31 @@ public class Controller extends HttpServlet {
 
     // Post a new bike product information
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String bike_name = req.getParameter("bike_name");
         String company = req.getParameter("company");
         String description = req.getParameter("description");
         float engine_power = Float.parseFloat(req.getParameter("engine_power"));
         float price = Float.parseFloat(req.getParameter("price"));
 
+        Part part = req.getPart("image");
+        String ROOT_PATH = getServletContext().getRealPath("/");
+        System.out.println(ROOT_PATH);
+
         try {
-            Bike bikeData = new Bike(0, bike_name, company, description, engine_power, price);
+
+            String imgFilename = new SaveImageFile().add(part, ROOT_PATH, "uploads");
+
+            Bike bikeData = new Bike(-1, bike_name, description, company, engine_power, price, imgFilename);
             boolean response = BikeDAO.insertBike(bikeData);
 
             out = resp.getWriter();
+
+            resp.addHeader("Content-Type", "application/json");
             if (response) {
-                resp.addHeader("Content-Type", "application/json");
                 out.println(gson.toJson("New bike was inserted"));
                 System.out.println("New bike was inserted");
             } else {
-                resp.addHeader("Content-Type", "application/json");
                 out.println(gson.toJson("Insertion failed"));
                 System.out.println("Insertion failed");
             }

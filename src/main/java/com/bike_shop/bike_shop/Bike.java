@@ -6,6 +6,7 @@ public record Bike(
         String description,
         String company,
         float engine_power,
-        float price
+        float price,
+        String image
 ) {
 }

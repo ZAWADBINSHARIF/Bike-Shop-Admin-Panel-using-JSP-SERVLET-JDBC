@@ -32,7 +32,8 @@ public class BikeDAO {
                         resultSet.getString("description"),
                         resultSet.getString("company"),
                         resultSet.getFloat("engine_power"),
-                        resultSet.getFloat("price")
+                        resultSet.getFloat("price"),
+                        resultSet.getString("img")
                 ));
             }
 
@@ -50,7 +51,7 @@ public class BikeDAO {
     public static boolean insertBike(Bike bike) {
         try {
             Connection connection = ConnectionProvider.createConnection();
-            String query = "INSERT INTO bikes(bike_name, company, description, engine_power, price) VALUES(?,?,?,?,?)";
+            String query = "INSERT INTO bikes(bike_name, company, description, engine_power, price, img) VALUES(?,?,?,?,?,?)";
 
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, bike.bike_name());
@@ -58,6 +59,7 @@ public class BikeDAO {
             statement.setString(3, bike.description());
             statement.setFloat(4, bike.engine_power());
             statement.setFloat(5, bike.price());
+            statement.setString(6, bike.image());
 
             statement.executeUpdate();
             connection.close();

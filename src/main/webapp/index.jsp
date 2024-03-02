@@ -39,7 +39,6 @@
 
     <%
       List<Bike> allBikes = BikeDAO.getAllBikes();
-      System.out.println(allBikes);
     %>
 
     <div class="bike_wrapper py-5">
@@ -50,13 +49,13 @@
             for (Bike allBike : allBikes) {
                 out.println("<div class=\"bike\">\n" +
                         "            <div class=\"card\" style=\"width: 18rem;\">\n" +
-                        "              <img src=\"https://th.bing.com/th/id/R.02c348b1411e413d8b6655599dfd1314?rik=gFv2XFj1jQA29g&pid=ImgRaw&r=0\" class=\"card-img-top\" width=\"240\" height=\"180\" alt=\"...\">\n" +
+                        "              <img src=\"./public/uploads/" + allBike.image() + "\" class=\"card-img-top\" width=\"240\" height=\"180\" alt=\"...\">\n" +
                         "              <div class=\"card-body\">\n" +
                         "                <h5 class=\"card-title\">" + allBike.bike_name() + "</h5>\n" +
-                        "                <p class=\"card-text\">" + allBike.company() + "</p>\n" +
+                        "                <p class=\"card-text\">" + allBike.description() + "</p>\n" +
                         "              </div>\n" +
                         "              <ul class=\"list-group list-group-flush\">\n" +
-                        "                <li class=\"list-group-item\">" + allBike.description() + "</li>\n" +
+                        "                <li class=\"list-group-item\">" + allBike.company() + "</li>\n" +
                         "                <li class=\"list-group-item\">" + allBike.engine_power() + " CC</li>\n" +
                         "                <li class=\"list-group-item\">" + allBike.price() + " TK</li>\n" +
                         "              </ul>\n" +

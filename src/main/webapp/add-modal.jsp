@@ -47,7 +47,7 @@
             </div>
             <div class="modal-footer">
                 <%--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--%>
-                <button type="submit" class="btn btn-outline-secondary">Add</button>
+                <button type="submit" class="btn btn-outline-secondary" onClick="handleAdd()">Add</button>
             </div>
         </div>
     </div>
