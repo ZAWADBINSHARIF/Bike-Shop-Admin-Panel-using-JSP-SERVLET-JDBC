@@ -5,8 +5,6 @@ import com.bike_shop.DataAccessObject.BikeDAO;
 import com.bike_shop.bike_shop.Bike;
 import com.bike_shop.bike_shop.SaveImageFile;
 import com.google.gson.Gson;
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +16,6 @@ import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.UUID;
 
 @WebServlet("/api/bike")
 @MultipartConfig
