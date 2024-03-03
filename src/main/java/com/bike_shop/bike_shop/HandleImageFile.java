@@ -15,6 +15,8 @@ public class HandleImageFile {
             String fileExt = filename.substring(filename.lastIndexOf(".")+1);
             String []allowImgType = {"jpg", "png", "jpeg"};
             String modifiedFilename = filename.replaceAll("." + fileExt, random_UUID) + "." + fileExt;
+
+            modifiedFilename = String.join("-",modifiedFilename.split(" "));
             fileSaveDirPath = fileSaveDirPath + File.separator + "public"+ File.separator + uploadFolder;
 
         try {
