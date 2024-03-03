@@ -3,7 +3,7 @@ package com.bike_shop.controller;
 
 import com.bike_shop.DataAccessObject.BikeDAO;
 import com.bike_shop.bike_shop.Bike;
-import com.bike_shop.bike_shop.SaveImageFile;
+import com.bike_shop.bike_shop.HandleImageFile;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -35,6 +35,8 @@ public class Controller extends HttpServlet {
             out.println(gson.toJson(allBikes));
             out.close();
         } catch (Exception error) {
+            resp.setStatus(500);
+            out.println(gson.toJson(error));
             System.out.println(error.getMessage());
         }
 
@@ -51,16 +53,16 @@ public class Controller extends HttpServlet {
 
         Part part = req.getPart("image");
         String ROOT_PATH = getServletContext().getRealPath("/");
-        System.out.println(ROOT_PATH);
+
+        out = resp.getWriter();
 
         try {
 
-            String imgFilename = new SaveImageFile().add(part, ROOT_PATH, "uploads");
-
+            String imgFilename = new HandleImageFile().create(part, ROOT_PATH, "uploads");
+            if(imgFilename == null) throw new Exception("Only jpg, png and jpeg are allowed!");
             Bike bikeData = new Bike(-1, bike_name, description, company, engine_power, price, imgFilename);
             boolean response = BikeDAO.insertBike(bikeData);
 
-            out = resp.getWriter();
 
             resp.addHeader("Content-Type", "application/json");
             if (response) {
@@ -71,6 +73,8 @@ public class Controller extends HttpServlet {
                 System.out.println("Insertion failed");
             }
         } catch (Exception error) {
+            resp.setStatus(500);
+            out.println(gson.toJson(error));
             System.out.println(error.getMessage());
         }
 
@@ -79,9 +83,13 @@ public class Controller extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
 
+        String ROOT_PATH = getServletContext().getRealPath("/");
+
         try {
-            // http://localhost:8080/api/bike?id=1
+
+            // http://localhost:8080/api/bike?id=18&filename=bike.png
             int delete_id = Integer.parseInt(req.getParameter("id"));
+            String filename = req.getParameter("filename");
             boolean response = BikeDAO.deleteBike(delete_id);
 
             out = resp.getWriter();
@@ -89,6 +97,7 @@ public class Controller extends HttpServlet {
             resp.addHeader("Content-Type", "application/json");
 
             if (response) {
+                new HandleImageFile().delete(ROOT_PATH, filename);
                 out.println(gson.toJson("ID: " + delete_id + ". Bike was deleted"));
                 System.out.println("Bike was deleted");
             } else {
@@ -96,6 +105,8 @@ public class Controller extends HttpServlet {
                 System.out.println("Deletion failed");
             }
         } catch (Exception error) {
+            resp.setStatus(500);
+            out.println(gson.toJson(error));
             System.out.println(error.getMessage());
         }
     }

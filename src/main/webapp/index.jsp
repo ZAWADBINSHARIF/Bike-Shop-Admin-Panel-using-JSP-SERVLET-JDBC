@@ -60,7 +60,7 @@
                         "                <li class=\"list-group-item\">" + allBike.price() + " TK</li>\n" +
                         "              </ul>\n" +
                         "              <div class=\"card-body d-flex justify-content-end\">\n" +
-                        "                <i class=\"fa-solid fa-trash fa-lg delete-icon\" ondblclick=handleDelete(\"" + allBike.id() + "\")></i>\n" +
+                        "                <i class=\"fa-solid fa-trash fa-lg delete-icon\" ondblclick=handleDelete(" + allBike.id() + ","  + "\"" + allBike.image() + "\"" + ")></i>\n" +
                         "              </div>\n" +
                         "            </div>\n" +
                         "         </div>");

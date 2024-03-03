@@ -72,10 +72,10 @@ public class BikeDAO {
     }
 
     public static boolean deleteBike(int id) {
-        String query = "DELETE FROM bikes WHERE id=?";
+        String deleteQuery = "DELETE FROM bikes WHERE id=?";
         Connection connection = ConnectionProvider.createConnection();
 
-        try (PreparedStatement statement = connection.prepareStatement(query)){
+        try (PreparedStatement statement = connection.prepareStatement(deleteQuery)){
             statement.setInt(1, id);
 
             statement.executeUpdate();

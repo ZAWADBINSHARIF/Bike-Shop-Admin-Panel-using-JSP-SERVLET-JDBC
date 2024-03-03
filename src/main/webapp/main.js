@@ -8,7 +8,6 @@ async function handleAdd(){
 
     if(bike_name && description && company && engine_power && price){
         try {
-            console.log(image)
             const formData = new FormData();
             formData.append('bike_name', bike_name);
             formData.append('description', description);
@@ -30,9 +29,16 @@ async function handleAdd(){
     }
 }
 
-async function handleDelete(id){
+async function handleDelete(id, filename){
+
     try{
-        const response = await axios.delete(`/api/bike?id=${id}`);
+        // /api/bike?id=18&filename=bike.png
+        const response = await axios.delete(`/api/bike`, {
+            params:{
+                id: id,
+                filename: filename
+            }
+        });
         console.log(response);
         window.location.reload();
     }catch(err){

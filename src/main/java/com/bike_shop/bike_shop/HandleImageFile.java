@@ -3,13 +3,12 @@ package com.bike_shop.bike_shop;
 import jakarta.servlet.http.Part;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
-public class SaveImageFile {
+public class HandleImageFile {
 
-    public String add(Part part, String fileSaveDirPath, String uploadFolder) {
+    public String create(Part part, String fileSaveDirPath, String uploadFolder) {
 
             String random_UUID = UUID.randomUUID().toString();
             String filename = part.getSubmittedFileName();
@@ -20,7 +19,7 @@ public class SaveImageFile {
 
         try {
             if (!(Arrays.asList(allowImgType).contains(fileExt))) {
-                throw new IOException("Only jpg, png and jpeg are allowed!");
+                throw new Exception("Only jpg, png and jpeg are allowed!");
             }
                 File fileSaveDir = new File(fileSaveDirPath);
 
@@ -33,6 +32,19 @@ public class SaveImageFile {
             }catch(Exception e){
                 System.out.println(e);
                 return null;
+        }
+    }
+
+    public void delete(String fileSaveDirPath, String filename) {
+
+        String filePath =  fileSaveDirPath + "public" + File.separator + "uploads" + File.separator + filename;
+
+        try{
+            File file = new File(filePath);
+            boolean delete = file.delete();
+            if(!delete) throw new Exception("File Delete fail");
+        }catch (Exception e) {
+            System.out.println(e);
         }
     }
 }
